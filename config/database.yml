@@ -95,8 +95,8 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: hrefs_production
-    username: hrefs
+    database: <%= ENV["HREFS_DATABASE_DATABASE"] %>
+    username: <%= ENV["HREFS_DATABASE_USERNAME"] %>
     password: <%= ENV["HREFS_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
