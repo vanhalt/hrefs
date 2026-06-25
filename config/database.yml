@@ -95,6 +95,8 @@ test:
 production:
   primary: &primary_production
     <<: *default
+    host: <%= ENV["HREFS_DATABASE_HOST"] %>
+    port: <%= ENV["HREFS_DATABASE_PORT"] %>
     database: <%= ENV["HREFS_DATABASE_DATABASE"] %>
     username: <%= ENV["HREFS_DATABASE_USERNAME"] %>
     password: <%= ENV["HREFS_DATABASE_PASSWORD"] %>
