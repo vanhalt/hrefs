@@ -22,30 +22,71 @@
     </div>
   </div>
 
+  <section class="rounded-lg border border-gray-200 bg-white p-4">
+    <div class="flex items-center justify-between gap-4 mb-4">
+      <div>
+        <h2 class="text-lg font-semibold">Traffic over time</h2>
+        <p class="text-sm text-gray-500">Visits in the last 30 days.</p>
+      </div>
+    </div>
+    <% if @visits_by_day.present? %>
+      <%= line_chart @visits_by_day, height: "280px", colors: ["#111827"], xtitle: "Day", ytitle: "Visits", points: false, legend: false %>
+    <% else %>
+      <p class="text-sm text-gray-500">No visits recorded yet.</p>
+    <% end %>
+  </section>
+
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
     <section class="rounded-lg border border-gray-200 bg-white p-4">
-      <h2 class="text-lg font-semibold mb-3">Top links by clicks</h2>
-      <div class="space-y-3">
-        <% if @top_links.any? %>
-          <% @top_links.each do |link| %>
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="font-medium text-gray-900"><%= link.name %></p>
-                <p class="text-sm text-gray-500">/<%= link.slug %></p>
-              </div>
-              <div class="text-right">
-                <p class="font-semibold"><%= link.clicks_count %> clicks</p>
-                <%= link_to "Open", link_path(link), class: "text-sm text-blue-600 hover:text-blue-700" %>
-              </div>
-            </div>
-          <% end %>
-        <% else %>
-          <p class="text-sm text-gray-500">No links created yet.</p>
-        <% end %>
+      <div class="flex items-center justify-between gap-4 mb-4">
+        <div>
+          <h2 class="text-lg font-semibold">Top links by clicks</h2>
+          <p class="text-sm text-gray-500">Most clicked destinations in the app.</p>
+        </div>
       </div>
+      <% if @top_links_by_clicks.present? %>
+        <%= bar_chart @top_links_by_clicks, height: "280px", colors: ["#2563eb"], xtitle: "Clicks", ytitle: "Link", library: { indexAxis: "y" } %>
+      <% else %>
+        <p class="text-sm text-gray-500">No links created yet.</p>
+      <% end %>
     </section>
 
     <section class="rounded-lg border border-gray-200 bg-white p-4">
+      <div class="flex items-center justify-between gap-4 mb-4">
+        <div>
+          <h2 class="text-lg font-semibold">Audience mix</h2>
+          <p class="text-sm text-gray-500">Browser, device, and bot breakdown.</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <p class="mb-2 text-sm font-medium text-gray-700">Browsers</p>
+          <% if @visits_by_browser.present? %>
+            <%= pie_chart @visits_by_browser, height: "220px", donut: true, colors: ["#0f172a", "#2563eb", "#64748b", "#94a3b8"] %>
+          <% else %>
+            <p class="text-sm text-gray-500">No browser data yet.</p>
+          <% end %>
+        </div>
+        <div>
+          <p class="mb-2 text-sm font-medium text-gray-700">Devices</p>
+          <% if @visits_by_device_type.present? %>
+            <%= pie_chart @visits_by_device_type, height: "220px", donut: true, colors: ["#111827", "#2563eb", "#38bdf8"] %>
+          <% else %>
+            <p class="text-sm text-gray-500">No device data yet.</p>
+          <% end %>
+        </div>
+        <div>
+          <p class="mb-2 text-sm font-medium text-gray-700">Bot traffic</p>
+          <% if @visits_by_bot_status.present? %>
+            <%= pie_chart @visits_by_bot_status, height: "220px", donut: true, colors: ["#16a34a", "#dc2626"] %>
+          <% else %>
+            <p class="text-sm text-gray-500">No traffic data yet.</p>
+          <% end %>
+        </div>
+      </div>
+    </section>
+
+    <section class="rounded-lg border border-gray-200 bg-white p-4 lg:col-span-2">
       <h2 class="text-lg font-semibold mb-3">Recent visits</h2>
       <div class="space-y-2">
         <% if @recent_visits.any? %>
