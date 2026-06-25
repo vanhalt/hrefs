@@ -1,0 +1,36 @@
+<% content_for :title, "Links" %>
+
+<div class="w-full">
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Links</h1>
+    <%= link_to "New link", new_link_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+  </div>
+
+  <%= form_with url: links_path, method: :get, class: "mt-4 mb-5 flex gap-2" do |form| %>
+    <%= form.search_field :q, value: @query, placeholder: "Search by name or slug", class: "w-full rounded-md border border-gray-300 px-3 py-2" %>
+    <%= form.submit "Search", class: "rounded-md px-4 py-2 bg-gray-900 text-white" %>
+  <% end %>
+
+  <div id="links" class="min-w-full divide-y divide-gray-200 space-y-5">
+    <% if @links.any? %>
+      <% @links.each do |link| %>
+        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
+          <%= render link %>
+          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
+            <%= link_to "Show", link, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+            <%= link_to "Edit", edit_link_path(link), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+            <%= button_to "Destroy", link, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-center my-10">No links found.</p>
+    <% end %>
+  </div>
+
+  <% if @pagy.pages > 1 %>
+    <div class="mt-6">
+      <%== @pagy.series_nav %>
+    </div>
+  <% end %>
+</div>

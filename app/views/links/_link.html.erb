@@ -1,0 +1,26 @@
+<div id="<%= dom_id link %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= link.name %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Slug:</strong>
+    /<%= link.slug %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Destination url:</strong>
+    <%= link_to link.destination_url, link.destination_url, target: "_blank", rel: "noopener", class: "text-blue-600 hover:text-blue-700" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Active:</strong>
+    <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium <%= link.active? ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-700" %>"><%= link.active? ? "Yes" : "No" %></span>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Expires at:</strong>
+    <%= link.expires_at ? format_visit_time(link.expires_at) : "Never" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Clicks count:</strong>
+    <%= link.clicks_count %>
+  </div>
+</div>

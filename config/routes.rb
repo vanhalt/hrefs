@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resource :session
+  resources :passwords, param: :token
+  resources :link_campaigns
+  resources :campaigns
+  resources :visits, only: [ :index, :show ]
+  resources :links
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -9,6 +15,7 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  root "dashboard#show"
+
+  get "/:slug", to: "redirects#show", as: :short, constraints: { slug: /[a-z0-9][a-z0-9_-]*/ }
 end

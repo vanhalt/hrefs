@@ -1,0 +1,70 @@
+<% content_for :title, "Showing link" %>
+
+<div class="w-full space-y-6">
+  <h1 class="font-bold text-4xl">Showing link</h1>
+
+  <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+    <section class="xl:col-span-2 rounded-lg border border-gray-200 bg-white p-5">
+      <%= render @link %>
+      <p class="text-sm text-gray-600 mt-2">
+        Public short URL:
+        <%= link_to short_url(@link.slug), short_url(@link.slug), class: "text-blue-600 hover:text-blue-700", target: "_blank", rel: "noopener" %>
+      </p>
+    </section>
+
+    <section class="rounded-lg border border-gray-200 bg-white p-5">
+      <h2 class="text-lg font-semibold mb-3">QR code</h2>
+      <div class="bg-white inline-block p-2 border rounded-md">
+        <%== qr_svg_for(short_url(@link.slug), module_size: 5) %>
+      </div>
+      <p class="text-xs text-gray-500 mt-2">Scans to /<%= @link.slug %></p>
+    </section>
+  </div>
+
+  <section class="rounded-lg border border-gray-200 bg-white p-5">
+    <h2 class="text-lg font-semibold mb-3">Recent visits</h2>
+    <% if @recent_visits.any? %>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 text-left">
+              <th class="py-2 pr-4">Visited at</th>
+              <th class="py-2 pr-4">IP</th>
+              <th class="py-2 pr-4">Browser</th>
+              <th class="py-2 pr-4">OS</th>
+              <th class="py-2 pr-4">Device</th>
+              <th class="py-2 pr-4">Bot</th>
+              <th class="py-2">View</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @recent_visits.each do |visit| %>
+              <tr class="border-b border-gray-100">
+                <td class="py-2 pr-4"><%= format_visit_time(visit.visited_at) %></td>
+                <td class="py-2 pr-4"><%= visit.ip_address %></td>
+                <td class="py-2 pr-4"><%= visit.browser %></td>
+                <td class="py-2 pr-4"><%= visit.os %></td>
+                <td class="py-2 pr-4"><%= visit.device_type %></td>
+                <td class="py-2 pr-4"><%= visit.bot? ? "Yes" : "No" %></td>
+                <td class="py-2"><%= link_to "Details", visit_path(visit), class: "text-blue-600 hover:text-blue-700" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <% if @pagy_visits.pages > 1 %>
+        <div class="mt-4">
+          <%== @pagy_visits.series_nav %>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-sm text-gray-500">No visits recorded for this link yet.</p>
+    <% end %>
+  </section>
+
+  <div>
+    <%= link_to "Edit this link", edit_link_path(@link), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+    <%= link_to "Back to links", links_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+    <%= button_to "Destroy this link", @link, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+  </div>
+</div>

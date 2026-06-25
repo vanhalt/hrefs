@@ -1,0 +1,46 @@
+<div id="<%= dom_id visit %>" class="w-full sm:w-auto my-5 space-y-5">
+  <div>
+    <strong class="block font-medium mb-1">Link:</strong>
+    <%= visit.link&.name || visit.link_id %> (/<%= visit.link&.slug %>)
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Ip address:</strong>
+    <%= visit.ip_address %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">User agent:</strong>
+    <%= visit.user_agent %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Referer:</strong>
+    <%= visit.referer %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Country:</strong>
+    <%= visit.country %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">City:</strong>
+    <%= visit.city %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Device type:</strong>
+    <%= visit.device_type %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Browser:</strong>
+    <%= visit.browser %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Os:</strong>
+    <%= visit.os %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Bot:</strong>
+    <%= visit.bot? ? "Yes" : "No" %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Visited at:</strong>
+    <%= format_visit_time(visit.visited_at) %>
+  </div>
+</div>

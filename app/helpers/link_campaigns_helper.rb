@@ -1,0 +1,2 @@
+module LinkCampaignsHelper
+end

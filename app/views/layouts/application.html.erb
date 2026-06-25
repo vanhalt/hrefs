@@ -24,7 +24,28 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <header class="border-b border-gray-200 bg-white">
+      <nav class="container mx-auto px-5 py-4 flex items-center justify-between">
+        <%= link_to "Hrefs", root_path, class: "text-xl font-semibold text-gray-900" %>
+        <div class="flex items-center gap-3 text-sm">
+          <% if authenticated? %>
+            <%= link_to "Dashboard", root_path, class: "text-gray-700 hover:text-gray-900" %>
+            <%= link_to "Links", links_path, class: "text-gray-700 hover:text-gray-900" %>
+            <%= link_to "Visits", visits_path, class: "text-gray-700 hover:text-gray-900" %>
+            <%= button_to "Sign out", session_path, method: :delete, class: "rounded-md px-3 py-1.5 bg-gray-900 text-white cursor-pointer" %>
+          <% end %>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container mx-auto mt-8 px-5">
+      <% if notice.present? %>
+        <p class="py-2 px-3 bg-green-50 mb-5 text-green-700 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+      <% end %>
+      <% if alert.present? %>
+        <p class="py-2 px-3 bg-red-50 mb-5 text-red-700 font-medium rounded-md inline-block" id="alert"><%= alert %></p>
+      <% end %>
+
       <%= yield %>
     </main>
   </body>

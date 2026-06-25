@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  link: one
+  ip_address: 127.0.0.1
+  user_agent: Mozilla/5.0
+  referer: https://google.com
+  country: US
+  city: New York
+  device_type: Desktop
+  browser: Firefox
+  os: Linux
+  bot: false
+  visited_at: 2026-06-24 20:49:25
+
+two:
+  link: two
+  ip_address: 10.0.0.1
+  user_agent: Googlebot/2.1
+  referer: https://bing.com
+  country: CA
+  city: Toronto
+  device_type: Desktop
+  browser: Unknown
+  os: Unknown
+  bot: false
+  visited_at: 2026-06-24 20:49:25

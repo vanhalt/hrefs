@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Homepage Link
+  slug: home-link
+  destination_url: https://example.com
+  active: true
+  expires_at:
+  clicks_count: 2
+
+two:
+  name: Docs Link
+  slug: docs-link
+  destination_url: https://example.org/docs
+  active: false
+  expires_at: 2026-06-24 20:49:11
+  clicks_count: 1
